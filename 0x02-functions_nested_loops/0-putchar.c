@@ -1,9 +1,11 @@
 #include "main.h"
+
 /**
 * main - Entry point
 *description: it prints a word _putchar
 * Return: nothing void
 */
+
 int main(void)
 {
 _putchar('_');
