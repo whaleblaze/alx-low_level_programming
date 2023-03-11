@@ -1,42 +1,85 @@
+#include <stdio.h>
 #include "main.h"
 
-
 /**
-* main - a program that adds positive numbers
-*
-* @argc: argument count
-*
-* @argv: argument vector
-*
-* Return: always 0
-*/
-
-int main(int argc, char *argv[])
+ * _atoi - converts a string to an integer
+ * @s: string to be converted
+ *
+ * Return: the int converted from the string
+ */
+int _atoi(char *s)
 {
-	int count, sum = 0;
+	int i, d, n, len, f, digit;
 
+	i = 0;
+	d = 0;
+	n = 0;
+	len = 0;
+	f = 0;
+	digit = 0;
 
-	if (argc < 2)
+	while (s[len] != '\0')
+		len++;
+
+	while (i < len && f == 0)
 	{
-		printf("%d\n", 0);
-		return (0);
+		if (s[i] == '-')
+			++d;
+
+		if (s[i] >= '0' && s[i] <= '9')
+		{
+			digit = s[i] - '0';
+			if (d % 2)
+				digit = -digit;
+			n = n * 10 + digit;
+			f = 1;
+			if (s[i + 1] < '0' || s[i + 1] > '9')
+				break;
+			f = 0;
+		}
+		i++;
 	}
 
-	for (count = 1; count < argc; count++)
+	if (f == 0)
+		return (0);
+
+	return (n);
+}
+
+/**
+ * main - adds two positive number
+ * @argc: number of arguments
+ * @argv: array of arguents
+ *
+ * Return: 0 (Success), or 1 (Success)
+ */
+int main(int argc, char *argv[])
+{
+	int sum, num, i, j, k;
+
+	sum = 0;
+
+	for (i = 1; i < argc; i++)
 	{
-		if (!atoi(argv[count]))
+		for (j = 0; argv[i][j] != '\0'; j++)
 		{
-			printf("Error\n");
-			return (1);
+			if (argv[i][j] > '9' || argv[i][j] < '0')
+			{
+				puts("Error");
+				return (1);
+			}
 		}
 	}
 
-	for (count = 1; count < argc; count++)
+	for (k = 1; k < argc; k++)
 	{
-		sum += atoi(argv[count]);
+		num = _atoi(argv[k]);
+		if (num >= 0)
+		{
+			sum += num;
+		}
 	}
 
 	printf("%d\n", sum);
-
 	return (0);
 }
